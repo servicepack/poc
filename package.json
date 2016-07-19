@@ -1,0 +1,25 @@
+{
+  "name": "poc",
+  "version": "1.0.0",
+  "description": "POC on Service Pack App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/servicepack/poc.git"
+  },
+  "author": "ndreddy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/servicepack/poc/issues"
+  },
+  "homepage": "https://github.com/servicepack/poc#readme",
+  "dependencies": {
+    "hapi": "^13.5.0",
+    "inert": "^4.0.1",
+    "ioredis": "^2.2.0",
+    "joi": "^9.0.1"
+  }
+}
