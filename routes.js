@@ -5,7 +5,7 @@ const Redis = require('ioredis');
 
 //basic constructor - Connect to 127.0.0.1:6379
 const redis = new Redis();
-const queueKey = "serviceQueue";
+const serviceQueue = "serviceQueue";
 
 let internals = {};
 
@@ -21,13 +21,24 @@ internals.postSr = function(request, reply) {
 	};
 
 	redis.lpush(serviceReq.customerId, JSON.stringify(serviceReq));
+	// redisDummyPublishClient.publish('serviceQueue', 'Car: Received service request no ' + no);
 	reply(serviceReq).created('/api/sr/' + serviceReq.customerId);
-
 }
 
 module.exports = [
-    
-	
+
+	{
+		method: 'GET',
+		path: '/{param*}',
+		handler: {
+			directory: {
+				path: '.',
+				redirectToSlash: true,
+				index: true
+			}
+		}
+	},
+
 	{
 		method: 'POST',
 		path: '/api/sr',
