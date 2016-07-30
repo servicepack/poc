@@ -5,7 +5,7 @@ const Inert = require('inert');
 const Routes = require('./routes');
 
 var server = new Hapi.Server();
-server.connection({ host: 'localhost', port: 8080 });
+server.connection({ port: 8080 });
 
 // server.connection({ host: 'localhost', port: 8080, labels: ['api'] });
 // server.connection({ host: 'localhost', port: 8081, labels: ['push'] });
