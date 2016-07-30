@@ -11,7 +11,7 @@ let internals = {};
 
 
 internals.postSr = function(request, reply) {
-	console.log("Creating service request in queue - -");
+	console.log("Processing POST for service request");
 
 	const serviceReq = {
 		customerId: request.payload.customerId,
@@ -19,9 +19,12 @@ internals.postSr = function(request, reply) {
 		serviceProvider: request.payload.serviceProvider,
 		productLoc: request.payload.productLoc
 	};
+	var strReq = JSON.stringify(serviceReq);
+	redis.lpush(serviceReq.customerId, strReq);
+	console.log("Request put in the queue for " + strReq);
 
-	redis.lpush(serviceReq.customerId, JSON.stringify(serviceReq));
-	// redisDummyPublishClient.publish('serviceQueue', 'Car: Received service request no ' + no);
+	redis.publish('serviceQueue', 'Service request ' + strReq);
+
 	reply(serviceReq).created('/api/sr/' + serviceReq.customerId);
 }
 
@@ -29,13 +32,9 @@ module.exports = [
 
 	{
 		method: 'GET',
-		path: '/{param*}',
-		handler: {
-			directory: {
-				path: '.',
-				redirectToSlash: true,
-				index: true
-			}
+		path: '/',
+		handler: function (request, reply) {
+			reply.file('index.html');
 		}
 	},
 

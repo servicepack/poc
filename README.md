@@ -5,8 +5,18 @@ POC on Service Pack App
 npm init
 npm install hapi joi inert ioredis --save
 
+# Start Redis server
+$ redis-server
+
 # Start node js
 node server.js
+
+# redis client
+redis-cli
+
+LRANGE serviceQueue  0 -1
+LRANGE 9845532994  0 -1
+
 
 # Send request to Post uri :
  http://localhost:8080/api/sr
@@ -14,8 +24,8 @@ node server.js
 
 # Payload
 {
-“customerId": “9845532994”,
-“serviceDate": “July 2011, 11:30 am”, 
-“serviceProvider": "Mandovi”, 
-“productLoc”: “12.9227068,77.693106"
+"customerId": "9845536994",
+"serviceDate": "July 2011, 11:30 am", 
+"serviceProvider": "Mandovi", 
+"productLoc": "12.9227068,77.693106"
 }

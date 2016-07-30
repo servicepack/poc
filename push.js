@@ -1,8 +1,10 @@
-var Handlers = require('./handlers');
+var redis = require("redis")
+
+var redisClient = redis.createClient();
 
 exports.register = function (server, options, next) {
 
-    var io = require('socket.io')(server.select('push').listener);
+    var io = require('socket.io')(server.listener);
 console.log("io listener created " + io);
 
 io.sockets.on('connection', function (socket) {
@@ -13,8 +15,29 @@ io.sockets.on('connection', function (socket) {
   //on subscription request joins specified room
   //later messages are broadcasted on the rooms
   socket.on('subscribe', function (data) {
+  	console.log("socket on subscribe " + data.channel);
     socket.join(data.channel);
   });
+});
+
+/**
+ * subscribe to redis channel when client in ready
+ */
+redisClient.on('ready', function() {
+   console.log("redisClient on ready ");	
+  redisClient.subscribe('serviceQueue');
+});
+
+/**
+ * wait for messages from redis channel, on message
+ * send updates on the rooms named after channels. 
+ * 
+ * This sends updates to users. 
+ */
+redisClient.on("message", function(channel, message){
+	console.log("redisClient on message " + message);
+    var resp = {'text': message, 'channel':channel}
+    io.sockets.in(channel).emit('message', resp);
 });
 
 next();
