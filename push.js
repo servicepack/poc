@@ -1,8 +1,10 @@
 var redis = require("redis");
 
-var redisServerUrl = 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com';
-var redisClient = redis.createClient(6379, redisServerUrl, {no_ready_check: true});
-console.log("Redis Client connected to server" );
+//var redisServer = "localhost";
+var redisServer = 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com';
+
+var redisClient = redis.createClient(6379, redisServer, {no_ready_check: true});
+
 exports.register = function (server, options, next) {
 
 var io = require('socket.io')(server.listener);
