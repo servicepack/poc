@@ -1,11 +1,11 @@
 var redis = require("redis");
 
-var redisClient = redis.createClient();
-
+var redisClient = redis.createClient(6379, 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com', {no_ready_check: true});
+console.log("Redis Client connected to server" );
 exports.register = function (server, options, next) {
 
-    var io = require('socket.io')(server.listener);
-console.log("io listener created " + io);
+var io = require('socket.io')(server.listener);
+console.log("Socket io listener created" );
 
 io.sockets.on('connection', function (socket) {
   console.log("io socket on connection " + socket);
