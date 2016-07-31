@@ -4,8 +4,12 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script>
+			
+			var serverUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+			console.log('Socket io connection to' + serverUrl );
+			
 			//socket io client
-			var socket = io.connect('http://localhost:8080/');
+			var socket = io.connect(serverUrl);
 
 			//on connetion, updates connection state and sends subscribe request
 			socket.on('connect', function(data){
@@ -36,7 +40,7 @@
 				console.log(str)
 				$('#messages').append(str)
 			}
-			
+
 		</script>
 	</head>
 	<body>

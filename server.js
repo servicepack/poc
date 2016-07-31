@@ -4,22 +4,40 @@ const Hapi = require('hapi');
 const Inert = require('inert');
 const Routes = require('./routes');
 
+var RedisServer = require('redis-server');
+
+ 
+
+ // Start Redis Server.
+var redisServerInstance = new RedisServer(6379);
+redisServerInstance.open(function (error) {
+ 
+  if (error) {
+    throw new Error(error);
+  }
+ 
+  // The server is now up and running on port 6379, 
+  // you can now create a client to connect to the 
+  // server 
+ 
+});
+
+// Start Hapi Server for REST APIs
 var server = new Hapi.Server();
 server.connection({ port: 8080 });
 
-// server.connection({ host: 'localhost', port: 8080, labels: ['api'] });
-// server.connection({ host: 'localhost', port: 8081, labels: ['push'] });
 
-//inert provides new handler methods for serving static files and directories, 
-//as well as decorating the reply interface with a file method for serving file based resources.
+// Register inert for serving static files and directories, 
 server.register(Inert, () => {});
 
+// Register socket.io for realtime notifications.
 server.register(require('./push'), () => {}); 
 
+// Configure URL Resource mapings
 server.route(Routes);
 
 server.start(() => {
-  console.log(`Api server running at ${server.info.uri}`);
+  console.log(`Hapi server running at ${server.info.uri}`);
   console.log(`Socket io listening at ${server.info.uri}`);
 });
 
