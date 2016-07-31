@@ -3,8 +3,9 @@
 var Joi = require('joi');
 const Redis = require('ioredis');
 
-//basic constructor - Connect to 127.0.0.1:6379
-const redis = new Redis();
+//Connects to ElastiCache Redis server
+const redis = new Redis(6379, 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com');
+
 const serviceQueue = "serviceQueue";
 
 let internals = {};

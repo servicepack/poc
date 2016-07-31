@@ -33,7 +33,9 @@ LRANGE 9845532994  0 -1
 # Driver Interface
 http://localhost:8080
 
-//eb cli
+//Deploy to AWS Elastic Beanstalk from eb cli
+eb init
+
 eb create poc-dev
 eb use poc-dev
 eb deploy
