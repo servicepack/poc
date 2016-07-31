@@ -1,6 +1,7 @@
 var redis = require("redis");
 
-var redisClient = redis.createClient(6379, 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com', {no_ready_check: true});
+var redisServerUrl = 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com';
+var redisClient = redis.createClient(6379, redisServerUrl, {no_ready_check: true});
 console.log("Redis Client connected to server" );
 exports.register = function (server, options, next) {
 
@@ -44,6 +45,7 @@ next();
     
 };
 
+exports.redisClient = redisClient;
 exports.register.attributes = {
     name: 'hapi-push'
 };

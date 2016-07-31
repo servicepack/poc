@@ -1,10 +1,10 @@
 'use strict';
 
 var Joi = require('joi');
-const Redis = require('ioredis');
+//const Redis = require('ioredis');
 
 //Connects to ElastiCache Redis server
-const redis = new Redis(6379, 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com');
+const redisClient = require('./push').redisClient;
 
 const serviceQueue = "serviceQueue";
 
@@ -21,10 +21,10 @@ internals.postSr = function(request, reply) {
 		productLoc: request.payload.productLoc
 	};
 	var strReq = JSON.stringify(serviceReq);
-	redis.lpush(serviceReq.customerId, strReq);
+	redisClient.lpush(serviceReq.customerId, strReq);
 	console.log("Request put in the queue for " + strReq);
 
-	redis.publish('serviceQueue', 'Service request ' + strReq);
+	redisClient.publish('serviceQueue', 'Service request ' + strReq);
 
 	reply(serviceReq).created('/api/sr/' + serviceReq.customerId);
 }
