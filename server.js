@@ -9,10 +9,12 @@ var RedisServer = require('redis-server');
  
 
  // Start Redis Server.
+ console.log('Starting Redis server on port 6379');
 var redisServerInstance = new RedisServer(6379);
 redisServerInstance.open(function (error) {
  
   if (error) {
+  	console.log('Error: Starting Redis server on port 6379');
     throw new Error(error);
   }
  
