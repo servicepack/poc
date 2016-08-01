@@ -3,8 +3,8 @@
 var Joi = require('joi');
 const Redis = require('ioredis');
 
-// var redisServer = "localhost";
-var redisServer = 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com';
+var redisServer = "localhost";
+// var redisServer = 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com';
 
 const redis = new Redis(6379, redisServer);
 
@@ -35,9 +35,21 @@ module.exports = [
 
 	{
 		method: 'GET',
-		path: '/',
+		path: '/{param*}',
+		handler: {
+			directory: {
+				path: '.',
+				redirectToSlash: true,
+				index: true
+			}
+		}
+	},
+	
+	{
+		method: 'GET',
+		path: '/driver',
 		handler: function (request, reply) {
-			reply.file('index.html');
+			reply.file('driver.html');
 		}
 	},
 

@@ -39,3 +39,7 @@ eb init
 eb create poc-dev
 eb use poc-dev
 eb deploy
+
+eb ssh poc-dev
+cd /var/app/current
+
