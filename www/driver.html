@@ -1,0 +1,130 @@
+<html>
+<title>Driver Interface</title>
+	<head>
+	<link rel="stylesheet" href="../node_modules/material-design-lite/material.min.css">
+    <script src="../node_modules/material-design-lite/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script>
+			
+			var serverUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+			console.log('Socket io connection to ' + serverUrl );
+			
+			//socket io client
+			var socket = io.connect(serverUrl);
+
+			//on connetion, updates connection state and sends subscribe request
+			socket.on('connect', function(data){
+				setStatus('connected');
+				socket.emit('subscribe', {channel:'serviceQueue'});
+			});
+
+			//when reconnection is attempted, updates status 
+			socket.on('reconnecting', function(data) {
+				setStatus('reconnecting');
+			});
+
+			//on new message adds a new message to display
+			socket.on('message', function(data) {
+				console.log("Message Received " + data.text);
+				msg = data.text;
+				addMessage(msg);
+			});
+
+			//updates status to the status div
+			function setStatus(msg) {
+				$('#status').html('Connection Status : ' + msg);
+			}
+
+			//adds message to messages div
+			function addMessage(msg) {
+				var str = '<div class="message">' + msg + '</div><hr>';
+				console.log(str)
+				$('#messages').append(str)
+			}
+
+		</script>
+	</head>
+	<body>
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+      <div class="android-header mdl-layout__header mdl-layout__header--waterfall">
+        <div class="mdl-layout__header-row">
+          <span class="android-title mdl-layout-title">
+            <img class="android-logo-image" src="images/mech-spanner.jpeg">
+          </span>
+
+          <!-- Add spacer, to align navigation to the right in desktop -->
+          <div class="android-header-spacer mdl-layout-spacer"></div>
+
+          <!-- Serach -->
+          <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
+            <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+              <i class="material-icons">search</i>
+            </label>
+            <div class="mdl-textfield__expandable-holder">
+              <input class="mdl-textfield__input" type="text" id="search-field">
+            </div>
+          </div>
+
+         <!-- Right Navigation -->
+
+          <span class="android-mobile-title mdl-layout-title">
+            <!-- <img class="android-logo-image" src="images/mech-spanner.jpeg"> -->
+          </span>
+          <button class="android-more-button mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
+            <i class="material-icons">more_vert</i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
+            <li class="mdl-menu__item">Tyres</li>
+            <li class="mdl-menu__item">Spares</li>
+            <li disabled class="mdl-menu__item">Show rooms</li>
+            <li class="mdl-menu__item">Service History</li>
+          </ul>
+        </div>
+      </div>
+
+<!-- Left Navigation drawer -->
+      <div class="android-drawer mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <!-- <img class="android-logo-image" src="images/android-logo-white.png"> -->
+        </span>
+        <nav class="mdl-navigation">
+          <a class="mdl-navigation__link" href="">Cars</a>
+          <a class="mdl-navigation__link" href="">Bikes</a>
+          
+          <div class="android-drawer-separator"></div>
+          <span class="mdl-navigation__link" href="">Paymetns</span>
+         
+          <a class="mdl-navigation__link" href="">History</a>
+          <div class="android-drawer-separator"></div>
+         
+        </nav>
+      </div>
+
+ <div class="android-content mdl-layout__content">
+		<div id="status"></div><br><br>
+		<div class="android-content mdl-layout__content" id="messages"></div>
+
+		<footer class="android-footer mdl-mega-footer">
+          <div class="mdl-mega-footer--top-section">
+            <div class="mdl-mega-footer--left-section">
+              <button class="mdl-mega-footer--social-btn"></button>
+              &nbsp;
+              <button class="mdl-mega-footer--social-btn"></button>
+              &nbsp;
+              <button class="mdl-mega-footer--social-btn"></button>
+            </div>
+            <div class="mdl-mega-footer--right-section">
+              <a class="mdl-typography--font-light" href="#top">
+                Back to Top
+                <i class="material-icons">expand_less</i>
+              </a>
+            </div>
+          </div>
+        </footer>
+
+	</body>
+</html>
