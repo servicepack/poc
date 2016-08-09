@@ -49,7 +49,7 @@ module.exports = [
 		method: 'GET',
 		path: '/driver',
 		handler: function (request, reply) {
-			reply.file('driver.html');
+			reply.file('./www/driver.html');
 		}
 	},
 
