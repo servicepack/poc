@@ -3,8 +3,8 @@
 var Joi = require('joi');
 const Redis = require('ioredis');
 
-var redisServer = "localhost";
-// var redisServer = 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com';
+// var redisServer = "localhost";
+var redisServer = 'redismicro.llmosf.0001.usw2.cache.amazonaws.com';
 
 const redis = new Redis(6379, redisServer);
 
@@ -26,7 +26,7 @@ internals.postSr = function(request, reply) {
 	redis.lpush(serviceReq.customerId, strReq);
 	console.log("Request put in the queue for " + strReq);
 
-	redis.publish('serviceQueue', 'Service request ' + strReq);
+	redis.publish('serviceQueue', strReq);
 
 	reply(serviceReq).created('/api/sr/' + serviceReq.customerId);
 }

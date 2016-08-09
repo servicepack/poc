@@ -30,8 +30,11 @@ LRANGE 9845532994  0 -1
 "productLoc": "12.9227068,77.693106"
 }
 
+# Service Advisor Interface
+http://localhost:8080/www/index.html
+
 # Driver Interface
-http://localhost:8080
+http://localhost:8080/www/driver.html
 
 //Deploy to AWS Elastic Beanstalk from eb cli
 eb init

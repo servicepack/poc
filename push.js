@@ -1,7 +1,7 @@
 var redis = require("redis");
 
-var redisServer = "localhost";
-// var redisServer = 'myredis-001.llmosf.0001.usw2.cache.amazonaws.com';
+// var redisServer = "localhost";
+var redisServer = 'redismicro.llmosf.0001.usw2.cache.amazonaws.com';
 
 var redisClient = redis.createClient(6379, redisServer, {no_ready_check: true});
 

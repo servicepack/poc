@@ -45,9 +45,13 @@
 
 			//adds message to messages div
 			function addMessage(msg) {
-				var str = '<div class="message">' + msg + '</div><hr>';
-				console.log(str)
-				$('#messages').append(str)
+				//var str = '<div class="message">' + msg + '</div><hr>';
+				console.dir(msg);
+				//var msgObj = JSON.parse(msg);
+				var str = '<tr><td class="mdl-data-table__cell--non-numeric">' + msg + '</td>';
+   
+				console.log(str);
+				$('#messages').append(str);
 			}
 
 		</script>
@@ -108,6 +112,18 @@
          
         </nav>
       </div>
+
+
+<!-- Table to display the data -->
+<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+  
+  <tbody id="messages">
+    
+  </tbody>
+</table>
+
+
+
 
  <div class="android-content mdl-layout__content">
 		<div id="status"></div><br><br>
