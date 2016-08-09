@@ -122,6 +122,9 @@
 
 
     <script>
+    var restUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/api/sr';
+      console.log('Sending REST request to ' + restUrl +  );
+
       $("#target").submit(function(e){
 
     e.preventDefault();
@@ -144,7 +147,7 @@
     //Save Form Data........
     $.ajax({
         cache: false,
-        url : "http://localhost:8080/api/sr",
+        url : restUrl,
         type: "POST",
         dataType : "json",
         data : data,

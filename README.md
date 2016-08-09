@@ -36,6 +36,9 @@ http://localhost:8080/www/index.html
 # Driver Interface
 http://localhost:8080/www/driver.html
 
+# Cloud server
+ poc-dev.us-west-2.elasticbeanstalk.com 
+
 //Deploy to AWS Elastic Beanstalk from eb cli
 eb init
 
