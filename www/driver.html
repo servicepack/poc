@@ -33,9 +33,7 @@
 
 			//on new message adds a new message to display
 			socket.on('message', function(data) {
-				console.log("Message Received " + data.text);
-				msg = data.text;
-				addMessage(msg);
+				addMessage(data);
 			});
 
 			//updates status to the status div

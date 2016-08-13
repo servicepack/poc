@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/servicepack/poc#readme",
   "dependencies": {
+    "boom": "^3.2.2",
+    "grant-hapi": "^3.6.3",
     "hapi": "^13.5.0",
     "inert": "^4.0.1",
     "ioredis": "^2.2.0",

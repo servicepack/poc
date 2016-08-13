@@ -20,13 +20,12 @@ server.register(require('./push'), () => {});
 server.route(require('./routes'));
 
 server.start(() => {
-  console.log(`Hapi server running at ${server.info.uri}`);
-  console.log(`Socket io listening at ${server.info.uri}`);
+  console.log(`Hapi and Socket io server running at ${server.info.uri}`);
 });
 
-module.exports = server;
 
 function shutdown() {
   server.stop(() => console.log('shutdown successful'));
 }
 
+module.exports = server;
