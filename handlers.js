@@ -32,16 +32,16 @@ var gen = idMaker();
 
 // [POST] /api/contact
 ContactHandler.prototype.store = function(request, reply) {
-	console.log("Processing POST /api/ " + request.payload);
-
+	
+	// Generates contact id.
 	var contactId = gen.next().value;
 	
-	// Extracts payload and creates obj.
+	// Extracts payload and convert to string.
 	var contactStr = JSON.stringify(request.payload);
-	// console.log("Creating new contact " + contactStr);
+	console.log("Processing POST /api/contact " + contactId + contactStr);
 	redisPubClient.lpush('contact:'+contactId, contactStr);
-	redisPubClient.publish('serviceQueue', request.payload);
-	reply().created('/api/contact/' + contactId);
+	redisPubClient.publish('serviceQueue', contactStr);
+	reply(contactStr).created('/api/contact/' + contactId);
 };
 
 // [PUT /api/contact/{id}]

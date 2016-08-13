@@ -83,10 +83,13 @@
         <div class="android-screen-section mdl-typography--text-center">
           <a name="screens"></a>
           <div class="android-screens">
+          <div id="status" mdl-js-ripple-effect ></div>
+
+
             <div class="android-wear android-screen">
               
               
-              <form id="target" action="#">
+              <form id="contactForm" action="#">
                 
                 <!-- Mobile Number -->
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -119,14 +122,14 @@
         <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Request">
               </form>
 
-<div id="status"></div>
+
 
 
     <script>
     var restUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/api/contact';
       console.log('REST request URL ' + restUrl );
 
-      $("#target").submit(function(e){
+      $("#contactForm").submit(function(e){
 
     e.preventDefault();
 
@@ -149,13 +152,15 @@
         cache: false,
         url : restUrl,
         type: "POST",
+        contentType: 'application/json',
         dataType : "json",
-        data : data,
+        data : JSON.stringify(data),
         context : Form,
         success : function(callback){
             //Where $(this) => context == FORM
            console.log("Success");
           $('#status').html("Success!");
+          // $("#contactForm")[0].reset();
         },
         error : function(){
           console.log("Error");
