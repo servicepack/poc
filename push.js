@@ -10,7 +10,10 @@ var io = require('socket.io')(server.listener);
 
 io.sockets.on('connection', function (socket) {
   //on connect send a welcome message
-  socket.emit('message', 'Welcome! Serve with Smile !!');
+   var msg = {
+    message: 'Welcome. Serve with Smile!'
+};
+  socket.emit('message', JSON.stringify(msg));
 
   //on subscription request joins specified room
   //later messages are broadcasted on the rooms

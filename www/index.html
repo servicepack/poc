@@ -119,10 +119,11 @@
         <input class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="submit" value="Request">
               </form>
 
+<div id="status"></div>
 
 
     <script>
-    var restUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/api/sr';
+    var restUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/api/contact';
       console.log('REST request URL ' + restUrl );
 
       $("#target").submit(function(e){
@@ -139,7 +140,6 @@
         data[input.attr("id")] = input.val();
         delete data["undefined"];
         delete data[""];
-        console.log(data);
     });
 
     //Form Validation goes here....
@@ -155,19 +155,16 @@
         success : function(callback){
             //Where $(this) => context == FORM
            console.log("Success");
-            // $(this).html("Success!");
+          $('#status').html("Success!");
         },
         error : function(){
           console.log("Error");
-            // $(this).html("Error!");
+          $('#status').html("Error!!");
         }
     });
   });
 
     </script>
-
-
-
 
             </div>
            
